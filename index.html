@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
 
     <!-- Cor da barra superior nos navegadores mobile -->
     <meta name="theme-color" content="#0f172a"> <!-- cor escura, por exemplo -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -588,81 +589,96 @@
         </div>
     </section>
 
+
     <section id="certificates" class="py-20 bg-slate-900 px-6">
         <div class="container mx-auto">
             <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-2xl md:text-4xl animate-on-scroll mb-4">Meus Certificados</h2>
-                <p class="text-sm md:text-lg animate-on-scroll" style="transition-delay: 0.1s;">
+                <h2 class="text-2xl md:text-4xl section-title animate-on-scroll mb-4">Meus Certificados</h2>
+                <p class="text-sm md:text-lg section-subtitle animate-on-scroll" style="transition-delay: 0.1s;">
                     Uma coleção das minhas conquistas e especializações que demonstram meu compromisso com o aprendizado
                     contínuo e a excelência profissional.
                 </p>
             </div>
 
-            <div class="space-y-16 md:space-y-20">
+            <div id="certificates-carousel-container" class="relative">
+                <div id="certificates-slider"
+                    class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth md:block md:space-y-20">
 
-                <div
-                    class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect">
-                    <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 relative group">
-                        <img src="https://picsum.photos/seed/certA/800/550" alt="Imagem do Certificado Alpha"
-                            class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
+                    <div class="certificate-carousel-item w-full flex-shrink-0 snap-center p-2 md:p-0">
+                        <div
+                            class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect h-full">
+                            <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 relative group">
+                                <img src="https://picsum.photos/seed/certA/800/550" alt="Imagem do Certificado Alpha"
+                                    class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
+                            </div>
+                            <div class="md:w-1/2 lg:w-7/12 text-center md:text-left">
+                                <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
+                                    Certificação Master em Frontend Avançado
+                                </h3>
+                                <p class="text-cyan-400 text-sm mb-2 font-medium">Code Academy Pro | Ano: 2024</p>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Este programa intensivo cobriu as mais recentes tecnologias e frameworks frontend,
+                                    incluindo React, Vue.js e Svelte, com foco em performance, arquitetura escalável e
+                                    PWA. Projetos práticos e desafios complexos garantiram a aplicação efetiva do
+                                    conhecimento.
+                                </p>
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
+                                    Ver Credencial
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="md:w-1/2 lg:w-7/12 text-center md:text-left">
-                        <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
-                            Certificação Master em Frontend Avançado
-                        </h3>
-                        <p class="text-cyan-400 text-sm mb-2 font-medium">Code Academy Pro | Ano: 2024</p>
-                        <p class="text-slate-300 leading-relaxed mb-4">
-                            Este programa intensivo cobriu as mais recentes tecnologias e frameworks frontend, incluindo
-                            React, Vue.js e Svelte, com foco em performance, arquitetura escalável e PWA. Projetos
-                            práticos e desafios complexos garantiram a aplicação efetiva do conhecimento.
-                        </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
-                            Ver Credencial
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
+
+                    <div class="certificate-carousel-item w-full flex-shrink-0 snap-center p-2 md:p-0">
+                        <div class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect h-full"
+                            style="transition-delay: 0.15s;">
+                            <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 md:order-2 relative group">
+                                <img src="https://picsum.photos/seed/certB/800/550" alt="Imagem do Certificado Beta"
+                                    class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
+                            </div>
+                            <div class="md:w-1/2 lg:w-7/12 text-center md:text-left md:order-1">
+                                <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
+                                    Especialista em UI/UX Design & Animação
+                                </h3>
+                                <p class="text-cyan-400 text-sm mb-2 font-medium">Creative Design Institute | Ano: 2023
+                                </p>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Foco em design centrado no usuário, prototipagem interativa com Figma e Adobe XD, e
+                                    a arte de criar microinterações e animações web que elevam a experiência do usuário,
+                                    utilizando LottieFiles e GSAP.
+                                </p>
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
+                                    Ver Credencial
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
-                <div class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect"
-                    style="transition-delay: 0.15s;">
-                    <div class="md:w-1/2 lg:w-7/12 text-center md:text-left md:order-1">
-                        <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
-                            Especialista em UI/UX Design & Animação
-                        </h3>
-                        <p class="text-cyan-400 text-sm mb-2 font-medium">Creative Design Institute | Ano: 2023</p>
-                        <p class="text-slate-300 leading-relaxed mb-4">
-                            Foco em design centrado no usuário, prototipagem interativa com Figma e Adobe XD, e a arte
-                            de criar microinterações e animações web que elevam a experiência do usuário, utilizando
-                            LottieFiles e GSAP.
-                        </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
-                            Ver Credencial
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 md:order-2 relative group"> <img
-                            src="https://picsum.photos/seed/certB/800/550" alt="Imagem do Certificado Beta"
-                            class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
-                    </div>
+                <div id="certificates-dots" class="mt-8 flex md:hidden justify-center space-x-2">
                 </div>
-
             </div>
         </div>
     </section>
+
+
 
     <section id="tech-stack" class="py-20 bg-slate-800 px-6">
         <div class="container mx-auto">
@@ -1130,6 +1146,72 @@
             // Executa na carga da página e no redimensionamento da tela
             setupResponsiveCarousel();
             window.addEventListener('resize', setupResponsiveCarousel);
+
+            // NOVO CÓDIGO DO CARROSSEL DE CERTIFICADOS
+            const certificatesSlider = document.getElementById('certificates-slider');
+            const certificatesDotsContainer = document.getElementById('certificates-dots');
+            let certificatesCarouselInitialized = false;
+
+            function initializeCertificatesCarousel() {
+                if (!certificatesSlider || certificatesCarouselInitialized) return;
+
+                const certificateItems = Array.from(certificatesSlider.children);
+                certificatesDotsContainer.innerHTML = ''; // Limpa bolinhas existentes
+
+                // Cria uma bolinha para cada certificado
+                certificateItems.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('testimonial-dot'); // Reutilizando o estilo das bolinhas dos depoimentos
+                    dot.setAttribute('aria-label', `Ir para certificado ${index + 1}`);
+                    dot.addEventListener('click', () => {
+                        certificateItems[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    });
+                    certificatesDotsContainer.appendChild(dot);
+                });
+
+                const dots = Array.from(certificatesDotsContainer.children);
+                if (dots.length > 0) {
+                    dots[0].classList.add('active');
+                }
+
+                // Observador para atualizar a bolinha ativa ao arrastar/scrollar
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const index = certificateItems.indexOf(entry.target);
+                            dots.forEach(dot => dot.classList.remove('active'));
+                            if (dots[index]) {
+                                dots[index].classList.add('active');
+                            }
+                        }
+                    });
+                }, {
+                    root: certificatesSlider,
+                    threshold: 0.6
+                });
+
+                certificateItems.forEach(item => observer.observe(item));
+                certificatesCarouselInitialized = true;
+            }
+
+            function destroyCertificatesCarousel() {
+                if (!certificatesCarouselInitialized) return;
+                certificatesDotsContainer.innerHTML = '';
+                certificatesCarouselInitialized = false;
+            }
+
+            function setupResponsiveCertificatesCarousel() {
+                // O breakpoint 'md' do Tailwind é 768px
+                if (window.innerWidth < 768) {
+                    initializeCertificatesCarousel();
+                } else {
+                    destroyCertificatesCarousel();
+                }
+            }
+
+            // Executa na carga da página e no redimensionamento da tela
+            setupResponsiveCertificatesCarousel();
+            window.addEventListener('resize', setupResponsiveCertificatesCarousel);
         });
     </script>
     <script>
