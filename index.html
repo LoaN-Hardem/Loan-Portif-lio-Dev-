@@ -1,530 +1,1212 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loan Hardem | Desenvolvedor Web Criativo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan - Portfólio | Front-end</title>
+
+    <link rel="shortcut icon" href="./img/letra-l.png" type="image/x-icon">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* Importando a fonte Inter do Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-        body {
-            padding-top: 64px;
-            /* Altura do header (h-16) */
-            font-family: 'Inter', sans-serif;
-        }
-
-        .typewriter-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: .15em solid #60A5FA;
-            /* Cor do cursor (azul Tailwind: blue-400) */
-            animation: typing 3.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from {
-                width: 0
-            }
-
-            to {
-                width: 100%
-            }
-        }
-
-        @keyframes blink-caret {
-
-            from,
-            to {
-                border-color: transparent
-            }
-
-            50% {
-                border-color: #60A5FA;
-            }
-        }
-
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0F172A;
-            /* slate-900 */
+            background: #1e293b;
+            /* slate-800 */
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #1E40AF;
-            /* blue-800 */
+            background: #06b6d4;
+            /* cyan-500 */
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #2563EB;
-            /* blue-600 */
+            background: #0891b2;
+            /* cyan-600 */
         }
 
-        .section-transition {
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            @apply text-3xl sm:text-4xl font-bold text-white mb-4 relative inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            @apply block w-1/2 h-1 bg-cyan-500 mx-auto mt-2 rounded-full;
+        }
+
+        .section-subtitle {
+            @apply text-lg text-slate-300 max-w-xl mx-auto mb-8;
+            /* Added mb-8 for more space */
+        }
+
+
+        /* Initial state for scroll animations */
+        .animate-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        .section-transition.visible {
+        .animate-on-scroll.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Efeito de zoom suave para cards de portfólio */
-        .portfolio-card img {
-            transition: transform 0.3s ease-in-out;
+        /* Hero Section Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .portfolio-card:hover img {
-            transform: scale(1.05);
+        .animate-fadeInUp>* {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fadeInUp h1 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-fadeInUp p {
+            animation-delay: 0.4s;
+        }
+
+        .animate-fadeInUp a {
+            animation-delay: 0.6s;
+        }
+
+
+        /* Header sticky style */
+        .header-scrolled {
+            @apply bg-slate-800 bg-opacity-90 backdrop-blur-md shadow-lg;
+            /* Added backdrop blur for modern effect */
+        }
+
+        /* About card (now Skills card) specific styling if needed */
+        .about-card {
+            /* Tailwind classes p-8 already applied in HTML, which is good. */
+        }
+
+        /* Education card specific styling if needed */
+        .education-card {
+            /* Tailwind classes p-6 already applied in HTML. */
+        }
+
+
+        /* Testimonial Carousel */
+        .testimonial-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .testimonial-dot {
+            @apply w-3 h-3 bg-slate-500 rounded-full cursor-pointer transition-colors duration-300;
+            /* Slightly lighter dot */
+        }
+
+        .testimonial-dot.active {
+            @apply bg-cyan-400;
+            /* Slightly lighter active dot */
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 1s ease forwards;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        /* Estilos e Animação para os Certificados */
+        .certificate-fall-effect {
+            /* Estado inicial específico para o efeito de queda - sobrescreve o transform do .animate-on-scroll */
+            opacity: 0;
+            /* Já definido por .animate-on-scroll, mas reforçado */
+            transform: translateY(-80px) rotateX(30deg) rotateZ(-6deg) scale(0.9);
+            /* A transição será definida quando .is-visible for adicionado */
+        }
+
+        .animate-on-scroll.certificate-fall-effect.is-visible {
+            /* Estado final quando visível, com transição customizada */
+            opacity: 1;
+            transform: translateY(0) rotateX(0) rotateZ(0) scale(1);
+            /* Uma transição "elástica" para simular o "assentamento" após a queda */
+            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            /* Se precisar de um delay explícito na transição (além do style="" no HTML): */
+            /* transition-delay: 0.1s; */
+            /* Exemplo */
+        }
+
+        /* Estilos e Animação para os Cards de Tecnologia */
+        .tech-card-pop-effect {
+            /* Estado inicial para o efeito de "pop" e leve rotação/perspectiva */
+            opacity: 0;
+            transform: scale(0.8) perspective(600px) rotateY(30deg) translateY(20px);
+            /* A transição será definida quando .is-visible for adicionado */
+        }
+
+        .animate-on-scroll.tech-card-pop-effect.is-visible {
+            /* Estado final quando visível, com transição customizada */
+            opacity: 1;
+            transform: scale(1) perspective(600px) rotateY(0deg) translateY(0);
+            /* Transição com efeito "elástico" */
+            transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+
+
+        .section-transition-separator {
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 0;
+            /* Remove qualquer espaço extra que o navegador possa adicionar em torno do SVG */
+            overflow: hidden;
+            /* Garante que nada inesperado vaze */
+        }
+
+        .svg-divider-wave-height {
+            height: 80px;
+            /* Defina a altura desejada para a sua onda/divisor. Ex: 60px, 80px, 100px */
+            /* Alternativa com Tailwind (se preferir, aplique diretamente no class do SVG): h-16 (64px), h-20 (80px), h-24 (96px) */
+        }
+    </style>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .perspective {
+                perspective: 1000px;
+            }
+            .transform-style {
+                transform-style: preserve-3d;
+            }
+            .backface-hidden {
+                backface-visibility: hidden;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            .glow {
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+            }
+            .text-glow {
+                text-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'fade-out': 'fadeOut 1s ease-out forwards'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 }
+                        },
+                        fadeOut: {
+                            '0%': { opacity: 1 },
+                            '100%': { opacity: 0 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        .parallax-container {
+            perspective: 1000px;
+        }
+
+        .parallax-layer {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+        }
+
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+        }
+
+        .image-transition {
+            transition: opacity 1s ease-in-out;
         }
     </style>
 </head>
 
-<body class="bg-slate-950 text-slate-200 scroll-smooth">
+<body class="bg-slate-900 text-slate-200 font-poppins overflow-x-hidden">
 
-    <header class="fixed w-full top-0 bg-slate-950/80 backdrop-blur-md z-50 shadow-lg">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="#home" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors">Loan
-                    Hardem</a>
-                <nav class="hidden md:flex space-x-1">
-                    <a href="#home"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Home</a>
-                    <a href="#about"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Sobre</a>
-                    <a href="#projects"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Estudos</a>
-                    <a href="#live-portfolio"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Portfólio</a>
-                    <a href="#contact"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Contato</a>
-                </nav>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-slate-300 hover:text-white focus:outline-none p-2"
-                        aria-expanded="false" aria-controls="mobile-menu">
-                        <svg class="h-6 w-6 block" id="icon-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero"
+                class="text-2xl font-montserrat font-bold text-white hover:text-cyan-400 transition-colors">LH.</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#hero" class="nav-link hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#skills" class="nav-link hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#about-me-detailed" class="nav-link hover:text-cyan-400 transition-colors">Sobre Mim</a>
+                <a href="#education" class="nav-link hover:text-cyan-400 transition-colors">Formações</a>
+                <a href="#projects" class="nav-link hover:text-cyan-400 transition-colors">Projetos</a>
+                <a href="#parallax-section" class="nav-link hover:text-cyan-400 transition-colors">LH Universe</a>
+                <a href="#contact"
+                    class="nav-link px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full text-lg transition-all duration-300 transform glow">Contato</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" aria-label="Open menu"
+                aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-slate-900 bg-opacity-95 z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-6">
+            <a href="#hero" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">Home</a>
+            <a href="#skills" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">Skills</a>
+            <a href="#about-me-detailed" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">Sobre
+                Mim</a>
+            <a href="#education" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">Formações</a>
+            <a href="#projects" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">Projetos</a>
+            <a href="#parallax-section" class="mobile-nav-link text-2xl hover:text-cyan-400 transition-colors">LH
+                Universe</a>
+            <a href="#contact"
+                class="mobile-nav-link px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full text-lg transition-all duration-300 transform hover:scale-105 glow">Contato</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero"
+        class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-6 pt-20 md:pt-0">
+        <div class="text-center space-y-6 animate-fadeInUp">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-montserrat font-bold text-white">
+                <span class="block text-slate-300">Olá, Eu sou</span> <span
+                    class="block bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">LOAN
+                    HARDEM</span>
+            </h1>
+            <hr class="border-t-2 border-blue-600 w-1/2 mx-auto">
+            <p class="text-3lg md:text-3xl text-slate-300">Desenvolvedor Front-end e Designer UI/UX</p>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
+                Transformo ideias em experiências digitais impactantes e intuitivas.
+            </p>
+            <a href="#projects"
+                class="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full text-lg transition-all duration-300 transform hover:scale-105 glow">
+                Veja Meus Projetos
+            </a>
+        </div>
+    </section>
+
+    <hr class="border-blue-600 w-full mx-auto">
+
+    <!-- About Me Section -->
+    <section id="about-me-detailed" class="py-28 bg-slate-800 px-6">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-12 md:mb-16">
+                <div class="animate-on-scroll relative group flex-shrink-0 mx-auto md:mx-0">
+                    <div
+                        class="relative w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 p-1.5 rounded-full bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-500 hover:from-cyan-500 hover:to-indigo-600 transition-all duration-300 shadow-xl group-hover:shadow-2xl group-hover:shadow-cyan-500/50">
+                        <div class="bg-slate-700 p-1 rounded-full w-full h-full"> <img src="./img/img-sobre.jpg"
+                                alt="Loan Hardem"
+                                class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-105">
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -bottom-3 -right-3 w-16 h-16 sm:w-20 sm:h-20 bg-cyan-600 rounded-full opacity-25 group-hover:opacity-40 transition-all duration-300 transform group-hover:scale-110 -z-10 blur-sm">
+                    </div>
+                    <div
+                        class="absolute -top-3 -left-3 w-20 h-20 sm:w-24 sm:h-24 bg-indigo-600 rounded-full opacity-25 group-hover:opacity-40 transition-all duration-300 transform group-hover:scale-110 -z-10 blur-sm">
+                    </div>
+                </div>
+
+                <div class="text-center md:text-left animate-on-scroll" style="animation-delay: 0.2s;">
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4 md:mb-6">Sobre Mim</h2>
+                    <p class="text-xs md:text-lg text-slate-300 leading-relaxed mb-4">
+                        Prazer, sou Loan Hardem! Tenho 19 anos e moro em Rosário do Ivaí, uma cidade tranquila que me
+                        inspira todos os dias. Atualmente, sou estudante de Análise e Desenvolvimento de Sistemas e
+                        sempre fui movido pela curiosidade e criatividade. Além da tecnologia, tenho a música como hobby
+                        — é ela quem me ajuda a manter o equilíbrio e enxergar o mundo com outros olhos.
+                    </p>
+                    <p class="text-xs md:text-lg text-slate-300 leading-relaxed">
+                        Gosto de
+                        aprender, criar e transformar ideias em algo que faça sentido para mim e para os outros.
+                    </p>
+                </div>
+            </div>
+
+            <div class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <h3 class="text-xl sm:text-2xl font-semibold text-white mb-4 text-center md:text-left">
+                    Minha Jornada e Motivações</h3>
+                <p class="text-xs md:text-lg text-slate-300 leading-relaxed mb-4">
+                    Minha trajetória na programação começou ainda no ensino médio, em 2022, quando descobri o mundo da
+                    tecnologia através da Alura. Aquilo que começou como curiosidade logo se tornou uma paixão. Em
+                    janeiro de 2023, iniciei oficialmente minha graduação em Análise e Desenvolvimento de Sistemas, e
+                    desde então venho me dedicando a estudar e praticar cada vez mais.
+                </p>
+                <p class="text-xs md:text-lg text-slate-300 leading-relaxed mb-4">
+                    Passei por diversas plataformas de cursos, explorei conteúdos profundos no YouTube e aprendi muito
+                    com grandes nomes como Fabio Akita, que me ajudaram a enxergar a tecnologia de forma mais madura e
+                    estratégica. Em 2024, junto a alguns amigos, fundei a Pense.try, uma empresa voltada para criação de
+                    sites personalizados. Ao longo do projeto, criei 7 sites completos para diferentes clientes e
+                    aprendi na prática sobre desenvolvimento, atendimento, design e gestão.
+                </p>
+                <p class="text-xs md:text-lg text-slate-300 leading-relaxed mb-8">
+                    Em maio de 2025, decidi seguir meu próprio caminho e deixei a empresa para focar no meu crescimento
+                    individual. Hoje, estou quase concluindo a faculdade e vivendo o auge da minha habilidade até aqui —
+                    pronto para novos desafios e com vontade de construir algo ainda maior.
+                </p>
+            </div>
+
+            <div class="animate-on-scroll" style="animation-delay: 0.6s;">
+                <h3 class="text-xl sm:text-2xl font-semibold text-white mb-6 text-center md:text-left">
+                    Além do Código: Interesses Pessoais</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-slate-300">
+                    <div
+                        class="bg-slate-900 p-3 md:p-6 rounded-lg shadow-lg hover:shadow-blue-600/20 transition-shadow duration-300">
+                        <div class="text-2xl md:text-3xl mb-1 md:mb-3">🎵</div>
+                        <h4 class="text-lg md:text-xl font-semibold text-white mb-2">Música como hobby</h4>
+                        <p class="text-xs md:text-sm leading-relaxed">Toco instrumentos de sopro e acredito que a música
+                            afina
+                            também a mente.</p>
+                    </div>
+                    <div
+                        class="bg-slate-900 p-3 md:p-6 rounded-lg shadow-lg hover:shadow-blue-600/20 transition-shadow duration-300">
+                        <div class="text-2xl md:text-3xl mb-1 md:mb-3">🧠</div>
+                        <h4 class="text-lg md:text-xl font-semibold text-white mb-2">Aprendizado contínuo</h4>
+                        <p class="text-xs md:text-sm leading-relaxed">Gosto de estudar por conta própria, explorar novas
+                            ferramentas e acompanhar bons criadores de conteúdo.</p>
+                    </div>
+                    <div
+                        class="bg-slate-900 p-3 md:p-6 rounded-lg shadow-lg hover:shadow-blue-600/20 transition-shadow duration-300">
+                        <div class="text-2xl md:text-3xl mb-1 md:mb-3">✨</div>
+                        <h4 class="text-lg md:text-xl font-semibold text-white mb-2">Criatividade em tudo</h4>
+                        <p class="text-xs md:text-sm leading-relaxed">Tenho prazer em criar, seja em código, design ou
+                            ideias para
+                            novos projetos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 animate-on-scroll text-center md:text-left" style="animation-delay: 0.8s;">
+                <p class="text-xs md:text-lg text-slate-300 leading-relaxed">
+                    Acredito que grandes ideias nascem quando técnica e criatividade se encontram — por isso, sigo
+                    aprendendo, criando e evoluindo, dentro e fora do código.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Technical Education Section -->
+    <section id="education" class="py-28 bg-slate-900 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-2xl md:text-4xl section-title animate-on-scroll mb-4">Formações Técnicas</h2>
+            <p class="text-sm md:text-lg animate-on-scroll mb-12">Como me tornei o profissional que você precisa.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Education Card 1 -->
+                <div
+                    class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group">
+                    <div class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6.253v11.494m0 0A8.001 8.001 0 004 17.747M12 17.747A8.001 8.001 0 0120 17.747M4 11.061V6.253a2 2 0 012-2h12a2 2 0 012 2v4.808m-8.001 6.686A4.501 4.501 0 0112 15.247a4.501 4.501 0 013.999 2.5M4 11.061L8.586 6.475a2 2 0 012.828 0L16 11.061" />
                         </svg>
-                        <svg class="h-6 w-6 hidden" id="icon-close" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
+                    </div>
+                    <h3 class="text-base md:text-xl font-semibold text-white mb-2">Analise e Desenvolvimento de Sistemas
+                    </h3>
+                    <p class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                        Unopar - Universidade do norte do Paraná</p>
+                    <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2025</p>
+                </div>
+                <!-- Education Card 2 -->
+                <div class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group"
+                    style="animation-delay: 0.2s;">
+                    <div class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span class="sr-only">Abrir menu principal</span>
+                    </div>
+                    <h3 class="text-base md:text-xl font-semibold text-white mb-2">Programação Web</h3>
+                    <p class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">Alura
+                        - Cursos Online de Tecnologia</p>
+                    <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2024</p>
+                </div>
+                <!-- Education Card 3 -->
+                <div class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group"
+                    style="animation-delay: 0.4s;">
+                    <div class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 12h4m-2-2v4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-base md:text-xl font-semibold text-white mb-2">Java Básico - Programação Orientada a
+                        Objetos</h3>
+                    <p class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                        Bootcamp Santander - Digital Innovation One (DIO)</p>
+                    <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-28 bg-slate-900 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-2xl md:text-4xl section-title animate-on-scroll mb-4">Formações Técnicas</h2>
+            <p class="text-sm md:text-lg animate-on-scroll mb-12">Como me tornei o profissional que você precisa.</p>
+
+            <div id="education-carousel-container" class="relative">
+                <div id="education-slider"
+                    class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 sm:overflow-visible">
+
+                    <div class="education-card-item flex-shrink-0 w-full sm:w-auto snap-center p-2 sm:p-0">
+                        <div
+                            class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group h-full">
+                            <div
+                                class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.253v11.494m0 0A8.001 8.001 0 004 17.747M12 17.747A8.001 8.001 0 0120 17.747M4 11.061V6.253a2 2 0 012-2h12a2 2 0 012 2v4.808m-8.001 6.686A4.501 4.501 0 0112 15.247a4.501 4.501 0 013.999 2.5M4 11.061L8.586 6.475a2 2 0 012.828 0L16 11.061" />
+                                </svg>
+                            </div>
+                            <h3 class="text-base md:text-xl font-semibold text-white mb-2">Analise e Desenvolvimento de
+                                Sistemas</h3>
+                            <p
+                                class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                                Unopar - Universidade do norte do Paraná</p>
+                            <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="education-card-item flex-shrink-0 w-full sm:w-auto snap-center p-2 sm:p-0">
+                        <div class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group h-full"
+                            style="animation-delay: 0.2s;">
+                            <div
+                                class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-base md:text-xl font-semibold text-white mb-2">Programação Web</h3>
+                            <p
+                                class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                                Alura - Cursos Online de Tecnologia</p>
+                            <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="education-card-item flex-shrink-0 w-full sm:w-auto snap-center p-2 sm:p-0">
+                        <div class="education-card animate-on-scroll bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-600/40 transition-all duration-300 transform hover:-translate-y-1 group h-full"
+                            style="animation-delay: 0.4s;">
+                            <div
+                                class="text-cyan-400 text-5xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 12h4m-2-2v4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-base md:text-xl font-semibold text-white mb-2">Java Básico - Programação
+                                Orientada a Objetos</h3>
+                            <p
+                                class="text-sm text-cyan-400 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                                Bootcamp Santander - Digital Innovation One (DIO)</p>
+                            <p class="text-slate-400 text-xs md:text-sm">Ano de Conclusão: 2024</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="education-dots" class="mt-6 flex sm:hidden justify-center space-x-2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-800 px-6"> <!-- Changed background for alternation -->
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl section-title animate-on-scroll mb-4">Minhas Criações</h2>
+            <p class="text-sm md:text-lg animate-on-scroll">Projetos que mostram minha paixão e expertise. <br> <strong
+                    class="text-sm md:text-lg text-cyan-400 opacity-50">Veja o que posso construir</strong></p>
+            <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Item 1 -->
+                <div
+                    class="project-item animate-on-scroll group relative overflow-hidden rounded-lg shadow-xl cursor-pointer">
+                    <img src="https://picsum.photos/seed/project1/600/400" alt="Project 1"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-70 transition-opacity duration-300 flex items-center justify-center p-4">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <h3 class="text-xl font-semibold text-white mb-1">Projeto Alpha</h3>
+                            <p class="text-sm text-cyan-300">Web Design / Branding</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 2 -->
+                <div class="project-item animate-on-scroll group relative overflow-hidden rounded-lg shadow-xl cursor-pointer"
+                    style="animation-delay: 0.2s;">
+                    <img src="https://picsum.photos/seed/project2/600/400" alt="Project 2"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-70 transition-opacity duration-300 flex items-center justify-center p-4">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <h3 class="text-xl font-semibold text-white mb-1">Plataforma Beta</h3>
+                            <p class="text-sm text-cyan-300">Mobile App / UI Kit</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 3 -->
+                <div class="project-item animate-on-scroll group relative overflow-hidden rounded-lg shadow-xl cursor-pointer"
+                    style="animation-delay: 0.4s;">
+                    <img src="https://picsum.photos/seed/project3/600/400" alt="Project 3"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-70 transition-opacity duration-300 flex items-center justify-center p-4">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <h3 class="text-xl font-semibold text-white mb-1">Vitrine Gamma</h3>
+                            <p class="text-sm text-cyan-300">Experiência Interativa</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more project items as needed -->
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="py-20 bg-slate-900 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-4xl animate-on-scroll mb-4">Meus Certificados</h2>
+                <p class="text-sm md:text-lg animate-on-scroll" style="transition-delay: 0.1s;">
+                    Uma coleção das minhas conquistas e especializações que demonstram meu compromisso com o aprendizado
+                    contínuo e a excelência profissional.
+                </p>
+            </div>
+
+            <div class="space-y-16 md:space-y-20">
+
+                <div
+                    class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect">
+                    <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 relative group">
+                        <img src="https://picsum.photos/seed/certA/800/550" alt="Imagem do Certificado Alpha"
+                            class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 lg:w-7/12 text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
+                            Certificação Master em Frontend Avançado
+                        </h3>
+                        <p class="text-cyan-400 text-sm mb-2 font-medium">Code Academy Pro | Ano: 2024</p>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Este programa intensivo cobriu as mais recentes tecnologias e frameworks frontend, incluindo
+                            React, Vue.js e Svelte, com foco em performance, arquitetura escalável e PWA. Projetos
+                            práticos e desafios complexos garantiram a aplicação efetiva do conhecimento.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
+                            Ver Credencial
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="certificate-item flex flex-col md:flex-row items-center gap-8 md:gap-12 animate-on-scroll certificate-fall-effect"
+                    style="transition-delay: 0.15s;">
+                    <div class="md:w-1/2 lg:w-7/12 text-center md:text-left md:order-1">
+                        <h3 class="text-2xl sm:text-3xl font-montserrat font-semibold text-white mb-3">
+                            Especialista em UI/UX Design & Animação
+                        </h3>
+                        <p class="text-cyan-400 text-sm mb-2 font-medium">Creative Design Institute | Ano: 2023</p>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Foco em design centrado no usuário, prototipagem interativa com Figma e Adobe XD, e a arte
+                            de criar microinterações e animações web que elevam a experiência do usuário, utilizando
+                            LottieFiles e GSAP.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center text-cyan-500 hover:text-cyan-400 font-semibold group transition-colors duration-300">
+                            Ver Credencial
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="md:w-1/2 lg:w-5/12 flex-shrink-0 md:order-2 relative group"> <img
+                            src="https://picsum.photos/seed/certB/800/550" alt="Imagem do Certificado Beta"
+                            class="w-full rounded-lg shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300 transform group-hover:scale-105">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-stack" class="py-20 bg-slate-800 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-4xl animate-on-scroll mb-4">Minhas Ferramentas e Tecnologias</h2>
+                <p class="text-sm md:text-lg animate-on-scroll" style="transition-delay: 0.1s;">
+                    As tecnologias e ferramentas que utilizo para transformar ideias em realidade digital, do design ao
+                    desenvolvimento e deployment.
+                </p>
+            </div>
+
+            <div class="mb-12 md:mb-16 animate-on-scroll">
+                <h3 class="text-xl sm:text-3xl font-montserrat font-semibold text-white mb-8 text-center">
+                    Front-end
+                </h3>
+                <div
+                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-8">
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.05s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                            alt="HTML5 Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">HTML5</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.1s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                            alt="CSS3 Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">CSS3</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.15s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                            alt="JavaScript Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">JavaScript</p>
+                    </div>
+
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.25s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                            alt="Tailwind CSS Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">Tailwind CSS</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-12 md:mb-16 animate-on-scroll" style="transition-delay: 0.2s;">
+                <h3 class="text-xl sm:text-3xl font-montserrat font-semibold text-white mb-8 text-center">
+                    Back-end
+                </h3>
+                <div
+                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-8">
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.05s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg"
+                            alt="Node.js Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">Node.js</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.1s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg"
+                            alt="Express Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300 filter dark:invert" />
+                        <p class="text-white text-sm sm:text-base font-medium">Express.js</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animate-on-scroll" style="transition-delay: 0.4s;">
+                <h3 class="text-xl sm:text-3xl font-montserrat font-semibold text-white mb-8 text-center">
+                    Design & Ferramentas
+                </h3>
+                <div
+                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-8">
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.05s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                            alt="Figma Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">Figma</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.1s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                            alt="Git Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">Git</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.1s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                            alt="Git Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">GitHub</p>
+                    </div>
+                    <div class="tech-card bg-slate-700 p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center animate-on-scroll tech-card-pop-effect group hover:bg-slate-600/70 transition-all duration-300 transform hover:-translate-y-1"
+                        style="transition-delay: 0.15s;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                            alt="VS Code Icon"
+                            class="w-12 h-12 sm:w-16 sm:h-16 mb-3 group-hover:scale-110 transition-transform duration-300" />
+                        <p class="text-white text-sm sm:text-base font-medium">VS Code</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+    <section id="downloads" class="py-20 bg-slate-800 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-3xl animate-on-scroll">Área de Downloads</h2>
+                <p class="text-sm md:text-lg animate-on-scroll mt-6" style="transition-delay: 0.1s;">
+                    Aqui você encontra alguns materiais úteis que preparei, como meu currículo, estudos de caso e outros
+                    recursos para facilitar nossa conexão ou colaboração.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-6 md:space-y-8">
+
+                <div class="download-item bg-slate-700 p-5 sm:p-6 rounded-xl shadow-xl flex flex-col sm:flex-row items-center sm:justify-between gap-4 sm:gap-6 animate-on-scroll group hover:bg-slate-600/80 transition-colors duration-300"
+                    style="transition-delay: 0.2s;">
+                    <div class="flex items-center gap-4 text-center sm:text-left w-full sm:w-auto">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 text-red-400 flex-shrink-0 group-hover:text-red-300 transition-colors duration-300"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M8.267 14.68c-.184 0-.308.018-.372.036v1.176c.064.018.188.036.372.036.495 0 .834-.234.834-.747s-.339-.735-.834-.735zm1.209-2.304c0-.765-.458-1.233-1.224-1.233-.784 0-1.287.54-1.287 1.404 0 .216.037.414.072.594h2.367c.036-.18.072-.378.072-.564zm6.887 2.304c.513 0 .807-.27.807-.666 0-.405-.294-.675-.807-.675h-.504V11.37h.504c.486 0 .774-.27.774-.666s-.288-.675-.774-.675h-1.63v5.04h1.63zm-3.214-2.34c0-1.116-.702-1.737-1.782-1.737s-1.782.621-1.782 1.737V14.68c0 1.125.702 1.746 1.782 1.746s1.782-.621 1.782-1.746v-2.34zm3.177-2.7h-1.08V4.788h1.08v4.896zm-7.795 0H4.26v4.896h1.08V9.684zm6.715 6.84h-5.58V15.3c0-.486.324-.837.918-.837.522 0 .846.261.954.756h.036c.108-.495.432-.756.954-.756.594 0 .918.351.918.837v1.224zM20 2H4c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM8.903 17.28c-1.017 0-1.62-.486-1.908-1.017h-.036v.918H6.023v-5.04h.936v.774h.036c.288-.558.891-1.053 1.908-1.053 1.215 0 2.043.834 2.043 2.16 0 1.326-.828 2.16-2.043 2.16zm7.069 0c-.999 0-1.683-.657-1.683-1.53s.684-1.53 1.683-1.53h.504v-1.053h-.504c-.999 0-1.656-.63-1.656-1.512s.657-1.512 1.656-1.512h1.63v5.901c0 .621-.378 1.233-1.08 1.233h-.549z" />
+                        </svg>
+                        <div class="flex-grow">
+                            <h3
+                                class="text-lg font-semibold text-white group-hover:text-cyan-300 transition-colors duration-300">
+                                Currículo Profissional (PT-BR)</h3>
+                            <p class="text-sm text-slate-300 mt-1">Minha trajetória profissional e habilidades
+                                detalhadas. (PDF, 120KB)</p>
+                        </div>
+                    </div>
+                    <a href="caminho/para/seu/curriculo.pdf" download="LoanHardem_Curriculo_PTBR.pdf"
+                        class="mt-4 sm:mt-0 ml-auto sm:ml-0 flex-shrink-0 inline-flex items-center bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-800">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Baixar
+                    </a>
+                </div>
+
+                <div class="download-item bg-slate-700 p-5 sm:p-6 rounded-xl shadow-xl flex flex-col sm:flex-row items-center sm:justify-between gap-4 sm:gap-6 animate-on-scroll group hover:bg-slate-600/80 transition-colors duration-300"
+                    style="transition-delay: 0.3s;">
+                    <div class="flex items-center gap-4 text-center sm:text-left w-full sm:w-auto">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 text-sky-400 flex-shrink-0 group-hover:text-sky-300 transition-colors duration-300"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19.5 3.552A2.504 2.504 0 0 0 17 2.5H7A2.502 2.502 0 0 0 4.5 5v14A2.502 2.502 0 0 0 7 21.5h10a2.504 2.504 0 0 0 2.5-2.5V5A2.5 2.5 0 0 0 19.5 3.552zM7 4.5h10a.5.5 0 0 1 .5.5v.552L12 8.948l-5.5-3.396V5a.5.5 0 0 1 .5-.5zm10.5 15H7a.5.5 0 0 1-.5-.5V9.948l5.145 3.18a.5.5 0 0 0 .71 0L18 9.948V19a.5.5 0 0 1-.5.5z M9 10a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm6 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                        </svg>
+                        <div class="flex-grow">
+                            <h3
+                                class="text-lg font-semibold text-white group-hover:text-cyan-300 transition-colors duration-300">
+                                Portfolio de Design (Seleção)</h3>
+                            <p class="text-sm text-slate-300 mt-1">Uma seleção dos meus melhores trabalhos de UI/UX.
+                                (ZIP, 15MB)</p>
+                        </div>
+                    </div>
+                    <a href="caminho/para/seu/portfolio.zip" download="LoanHardem_PortfolioDesign.zip"
+                        class="mt-4 sm:mt-0 ml-auto sm:ml-0 flex-shrink-0 inline-flex items-center bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-800">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Baixar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="parallax-section" class="relative w-full h-screen overflow-hidden shadow-2xl perspective">
+        <!-- Imagem de fundo com efeito parallax -->
+        <img id="parallax-image" src="./img/img-4.jpeg" alt="Paisagem montanhosa com lago"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out scale-110">
+
+        <!-- Overlay preto com gradiente -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-black/90"></div>
+
+        <!-- Conteúdo sobreposto -->
+        <div class="relative z-10 h-full flex flex-col items-center justify-center text-center p-6 transform-style">
+            <div class="backface-hidden max-w-4xl space-y-6">
+                <h1
+                    class="text-4xl md:text-7xl font-bold text-transparent animate-fade-in text-shadow text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500">
+                    Conheça o LH universe
+                </h1>
+                <p class="text-xl text-gray-200 animate-fade-in [animation-delay:0.3s] text-shadow">
+                    Descubra paisagens incríveis que vão além da sua imaginação
+                </p>
+                <div class="animate-fade-in [animation-delay:0.6s]">
+                    <button
+                        class="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full text-lg transition-all duration-300 transform hover:scale-105 glow">
+                        Iniciar Jornada
                     </button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-700">
-            <a href="#home"
-                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Home</a>
-            <a href="#about"
-                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Sobre</a>
-            <a href="#projects"
-                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Estudos</a>
-            <a href="#live-portfolio"
-                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Portfólio</a>
-            <a href="#contact"
-                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Contato</a>
-        </div>
-    </header>
 
-    <section id="home"
-        class="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-900/30 py-16 px-4 sm:px-6 lg:px-8 section-transition relative">
-        <div class="container mx-auto">
-            <div class="grid md:grid-cols-2 items-center gap-8 md:gap-12">
-                <div class="order-2 md:order-1 text-center md:text-left">
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
-                        <span class="block">Olá, sou</span>
-                        <span class="block text-blue-400">Loan Hardem.</span>
-                    </h1>
-                    <p class="text-lg sm:text-xl text-slate-300 mb-8 max-w-md mx-auto md:mx-0">
-                        <span class="typewriter-text">Transformo desafios em soluções digitais.</span>
-                    </p>
-                    <a href="#live-portfolio"
-                        class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-500 transition-transform transform hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-950">
-                        Veja meus trabalhos
-                    </a>
-                </div>
-                <div class="absolute top-0 right-0 w-1/3 h-full flex items-center justify-center">
-                    <img src="./img/loan.png" alt="Loan Hardem" class="w-full h-full object-cover" />
-                </div>
-            </div>
+        <!-- Instrução para o usuário -->
+        <div class="absolute bottom-12 left-0 right-0 text-center z-20">
+            <p class="text-gray-300 text-sm md:text-xl animate-pulse">Mova o mouse para ver o efeito</p>
         </div>
     </section>
 
-    <section id="about" class="py-16 sm:py-20 bg-slate-900 section-transition">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-blue-400">Sobre Mim</h2>
-                <p class="text-lg text-slate-300 mb-10 leading-relaxed">
-                    Sou um desenvolvedor focado em criar soluções digitais que não apenas funcionam bem, mas que também
-                    resolvem problemas complexos de forma elegante e eficiente. Minha paixão é transformar ideias em
-                    realidade através da tecnologia, sempre buscando aprimorar a experiência do usuário e a performance
-                    das aplicações.
-                </p>
-                <h3 class="text-2xl font-semibold mb-6 text-slate-100">Minhas Ferramentas e Tecnologias:</h3>
-                <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">HTML5</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">CSS3</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">JavaScript
-                        (ES6+)</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">React</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Tailwind
-                        CSS</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Node.js</span>
-                    <span
-                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Git
-                        & GitHub</span>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="certifications" class="py-16 sm:py-20 bg-slate-900 section-transition">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Meus Certificados</h2>
-            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
-                Aprimorando constantemente minhas habilidades e conhecimentos com cursos e certificações relevantes nas
-                mais recentes tecnologias.
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-800 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl section-title animate-on-scroll mb-4">Vamos Conectar</h2>
+            <p class="section-subtitle animate-on-scroll mb-12 md:mb-16"> Interessado em trabalhar junto ou apenas quer
+                dizer oi? <br class="hidden sm:block">Entre em contato através de um dos canais abaixo e vamos trabalhar
+                juntos.
             </p>
 
-            <div class="space-y-16">
-                <div class="flex flex-col md:flex-row items-center md:justify-end gap-8">
-                    <div class="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
-                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">Desenvolvimento Web Fullstack</h3>
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            Certificação completa em desenvolvimento web, abrangendo desde o frontend com React e
-                            Tailwind CSS até o backend com Node.js e bancos de dados. Um aprendizado profundo em
-                            arquiteturas modernas e boas práticas de código.
-                        </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
-                            Credencial</a>
-                    </div>
-                    <div class="w-full md:w-1/2 flex justify-center md:justify-end order-1 md:order-2">
-                        <div
-                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
-                            <img src="./img/certificado-1.png" alt="Certificado de Desenvolvimento Web Fullstack"
-                                class="w-full h-full object-cover rounded-lg"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row items-center md:justify-start gap-8">
-                    <div class="w-full md:w-1/2 flex justify-center md:justify-start">
-                        <div
-                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
-                            <img src="https://placehold.co/400x250/1E293B/E0E7FF?text=Certificado+2"
-                                alt="Certificado de UI/UX Design Avançado" class="w-full h-full object-cover rounded-lg"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/2 text-center md:text-left">
-                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">UI/UX Design Avançado</h3>
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            Foco em design de interface e experiência do usuário, aprendendo a criar interfaces
-                            intuitivas, acessíveis e visualmente atraentes. Domínio de ferramentas como Figma e
-                            princípios de usabilidade.
-                        </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
-                            Credencial</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row items-center md:justify-end gap-8">
-                    <div class="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
-                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">DevOps Essencial</h3>
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            Introdução aos conceitos e ferramentas DevOps, incluindo CI/CD, Docker e automação de
-                            deploy. Entendimento de como agilizar o ciclo de vida do desenvolvimento de software.
-                        </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
-                            Credencial</a>
-                    </div>
-                    <div class="w-full md:w-1/2 flex justify-center md:justify-end order-1 md:order-2">
-                        <div
-                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
-                            <img src="https://placehold.co/400x250/1E293B/E0E7FF?text=Certificado+3"
-                                alt="Certificado de DevOps Essencial" class="w-full h-full object-cover rounded-lg"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <section id="projects" class="py-16 sm:py-20 bg-slate-950 section-transition">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Estudos de Caso</h2>
-            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
-                Aqui apresento alguns projetos onde pude me aprofundar em desafios específicos, explorando tecnologias e
-                metodologias para alcançar os melhores resultados.
-            </p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div
-                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
-                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+1"
-                        alt="Nome do Estudo de Caso 1" class="w-full h-48 sm:h-56 object-cover"
-                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 1</h3>
-                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
-                            <strong class="text-slate-300">Desafio:</strong> Uma breve descrição do problema que este
-                            projeto buscou solucionar.
-                        </p>
-                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
-                            <strong class="text-slate-300">Solução:</strong> Como você abordou o desafio e quais
-                            tecnologias foram cruciais.
-                        </p>
-                        <p class="text-xs text-blue-400 mb-4 font-medium">#React #TailwindCSS #API</p>
-                        <div class="mt-auto flex gap-3">
-                            <a href="#" target="_blank" rel="noopener noreferrer"
-                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
-                                Código/Detalhes</a>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
-                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+2"
-                        alt="Nome do Estudo de Caso 2" class="w-full h-48 sm:h-56 object-cover"
-                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 2</h3>
-                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
-                            <strong class="text-slate-300">Desafio:</strong> Descreva o desafio aqui.
-                        </p>
-                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
-                            <strong class="text-slate-300">Solução:</strong> Detalhe a solução implementada.
-                        </p>
-                        <p class="text-xs text-blue-400 mb-4 font-medium">#JavaScript #NodeJS #Automação</p>
-                        <div class="mt-auto flex gap-3">
-                            <a href="#" target="_blank" rel="noopener noreferrer"
-                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
-                                Código/Detalhes</a>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
-                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+3"
-                        alt="Nome do Estudo de Caso 3" class="w-full h-48 sm:h-56 object-cover"
-                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 3</h3>
-                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
-                            <strong class="text-slate-300">Desafio:</strong> Descreva o desafio aqui.
-                        </p>
-                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
-                            <strong class="text-slate-300">Solução:</strong> Detalhe a solução implementada.
-                        </p>
-                        <p class="text-xs text-blue-400 mb-4 font-medium">#UI/UX #Figma #Prototipagem</p>
-                        <div class="mt-auto flex gap-3">
-                            <a href="#" target="_blank" rel="noopener noreferrer"
-                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
-                                Código/Detalhes</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="live-portfolio" class="py-16 sm:py-20 bg-slate-900 section-transition">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Portfólio Visual</h2>
-            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
-                Confira alguns dos projetos que desenvolvi e que estão atualmente online, demonstrando na prática a
-                aplicação das minhas habilidades.
-            </p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <a href="https://www.seusite1.com" target="_blank" rel="noopener noreferrer"
-                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
-                    <div class="overflow-hidden">
-                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+1"
-                            alt="Print do Site Exemplo 1"
-                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
-                            Nome do Site 1</h3>
-                        <p class="text-sm text-slate-400 mt-1">Breve descrição do site ou tecnologia principal.</p>
-                    </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
+                <a href="https://github.com/SEU_USUARIO_GITHUB" target="_blank" rel="noopener noreferrer"
+                    class="contact-card animate-on-scroll bg-slate-700 p-6 rounded-lg shadow-xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center group"
+                    style="animation-delay: 0s;">
+                    <svg class="w-12 h-12 text-cyan-400 mb-4 group-hover:text-cyan-300 transition-colors duration-300"
+                        fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.522 2 12 2Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <h3 class="text-xl font-semibold text-white mb-1">GitHub</h3>
+                    <p class="text-slate-300 group-hover:text-white transition-colors duration-300">Ver Perfil</p>
                 </a>
 
-                <a href="https://www.seusite2.com" target="_blank" rel="noopener noreferrer"
-                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
-                    <div class="overflow-hidden">
-                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+2"
-                            alt="Print do Site Exemplo 2"
-                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
-                            Nome do Site 2</h3>
-                        <p class="text-sm text-slate-400 mt-1">Cliente X - Solução de e-commerce.</p>
-                    </div>
+                <a href="https://linkedin.com/in/SEU_PERFIL_LINKEDIN" target="_blank" rel="noopener noreferrer"
+                    class="contact-card animate-on-scroll bg-slate-700 p-6 rounded-lg shadow-xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center group"
+                    style="animation-delay: 0.15s;">
+                    <svg class="w-12 h-12 text-cyan-400 mb-4 group-hover:text-cyan-300 transition-colors duration-300"
+                        fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <h3 class="text-xl font-semibold text-white mb-1">LinkedIn</h3>
+                    <p class="text-slate-300 group-hover:text-white transition-colors duration-300">Conectar</p>
                 </a>
 
-                <a href="https://www.seusite3.com" target="_blank" rel="noopener noreferrer"
-                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
-                    <div class="overflow-hidden">
-                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+3"
-                            alt="Print do Site Exemplo 3"
-                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
-                            Nome do Site 3</h3>
-                        <p class="text-sm text-slate-400 mt-1">Plataforma interativa para Y.</p>
-                    </div>
+                <a href="https://instagram.com/SEU_USUARIO_INSTAGRAM" target="_blank" rel="noopener noreferrer"
+                    class="contact-card animate-on-scroll bg-slate-700 p-6 rounded-lg shadow-xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center group"
+                    style="animation-delay: 0.3s;">
+                    <svg class="w-12 h-12 text-cyan-400 mb-4 group-hover:text-cyan-300 transition-colors duration-300"
+                        fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold text-white mb-1">Instagram</h3>
+                    <p class="text-slate-300 group-hover:text-white transition-colors duration-300">Seguir</p>
+                </a>
+
+                <a href="https://wa.me/SEUNUMEROWHATSAAP" target="_blank" rel="noopener noreferrer"
+                    class="contact-card animate-on-scroll bg-slate-700 p-6 rounded-lg shadow-xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center group"
+                    style="animation-delay: 0.45s;">
+                    <svg class="w-12 h-12 text-cyan-400 mb-4 group-hover:text-cyan-300 transition-colors duration-300"
+                        fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.795.371c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold text-white mb-1">WhatsApp</h3>
+                    <p class="text-slate-300 group-hover:text-white transition-colors duration-300">Enviar Mensagem</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-20 bg-slate-950 section-transition">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-2xl mx-auto text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-blue-400">Entre em Contato</h2>
-                <p class="text-lg text-slate-300 mb-10">
-                    Gostou do que viu? Se você tem um projeto, uma ideia ou apenas quer trocar uma ideia sobre
-                    tecnologia e soluções digitais, adoraria conversar!
-                </p>
-                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                    <a href="https://wa.me/55SEUNUMEROCOMPDDD" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.712-1.001zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z" />
-                        </svg>
-                        WhatsApp
-                    </a>
-                    <a href="https://linkedin.com/in/seu-usuario-linkedin" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        LinkedIn
-                    </a>
-                    <a href="https://github.com/seu-usuario-github" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.074 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        GitHub
-                    </a>
-                    <a href="https://instagram.com/seu-usuario-instagram" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.28.059 1.688.072 4.948.072s3.667-.013 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                        Instagram
-                    </a>
-                </div>
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-20 px-6 border-t border-slate-800">
+        <div class="container mx-auto text-center">
+            <div class="mb-3">
+                <a href="#hero"
+                    class="text-3xl font-montserrat font-bold text-slate-300 hover:text-cyan-400 transition-colors duration-300"
+                    aria-label="Voltar ao topo">
+                    LH.
+                </a>
             </div>
-        </div>
-    </section>
 
-    <footer class="bg-slate-950 border-t border-slate-800 py-8 text-center">
-        <p class="text-slate-400 text-sm">&copy; <span id="currentYear"></span> Loan Hardem. Transformando ideias em
-            realidade digital.</p>
+            <p class="text-sm text-slate-400 mb-2">
+                &copy; <span id="Ano"></span> Loan Hardem. Todos os direitos reservados.
+            </p>
+            <p class="text-xs text-slate-500 font-light tracking-wide">
+                Criatividade digital, construída com paixão.
+            </p>
+        </div>
     </footer>
 
+
     <script>
-        // JavaScript para o menu mobile
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconMenu = document.getElementById('icon-menu');
-        const iconClose = document.getElementById('icon-close');
-        const navLinks = mobileMenu.querySelectorAll('a');
-
-        mobileMenuButton.addEventListener('click', () => {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
-            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.classList.toggle('hidden');
-            iconMenu.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-                iconMenu.classList.remove('hidden');
-                iconClose.classList.add('hidden');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('a.nav-link, a.mobile-nav-link, a[href^="#hero"], a[href^="#projects"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#') && href.length > 1) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                            // Close mobile menu if open
+                            if (mobileMenu.classList.contains('menu-open')) {
+                                toggleMobileMenu();
+                            }
+                        }
+                    }
+                });
             });
-        });
 
-        // Atualiza o ano no footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+            // Sticky header
+            const header = document.getElementById('header');
+            const scrollOffset = 50; // Pixels to scroll before header becomes sticky
 
-        // Animação de entrada suave para seções
-        const sections = document.querySelectorAll('.section-transition');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observerInstance) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observerInstance.unobserve(entry.target);
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > scrollOffset) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
                 }
             });
-        }, observerOptions);
 
-        sections.forEach(section => {
-            observer.observe(section);
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuIcon = mobileMenuButton.querySelector('svg');
+
+            function toggleMobileMenu() {
+                const isOpen = mobileMenu.classList.toggle('menu-open');
+                mobileMenu.classList.toggle('-translate-x-full');
+                mobileMenu.classList.toggle('translate-x-0');
+                mobileMenuButton.setAttribute('aria-expanded', isOpen.toString());
+
+                if (isOpen) {
+                    mobileMenuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`; // X icon
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                } else {
+                    mobileMenuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>`; // Hamburger icon
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close mobile menu when a link is clicked
+            const mobileNavLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('menu-open')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+
+            // Scroll reveal animations
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // observer.unobserve(entry.target); // Optional: unobserve after animation
+                    } else {
+                        // Optional: re-animate if scrolling up
+                        // entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+
+
+            // Set current year in footer
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear().toString();
+            }
+
+
+            // NOVO CÓDIGO DO CARROSSEL DE FORMAÇÕES
+            const educationCarouselContainer = document.getElementById('education-carousel-container');
+            const educationSlider = document.getElementById('education-slider');
+            const educationDotsContainer = document.getElementById('education-dots');
+            let educationCarouselInitialized = false;
+
+            function initializeEducationCarousel() {
+                if (!educationSlider || educationCarouselInitialized) return;
+
+                const educationItems = Array.from(educationSlider.children);
+                educationDotsContainer.innerHTML = ''; // Limpa bolinhas existentes
+
+                // Cria uma bolinha para cada card
+                educationItems.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('testimonial-dot'); // Reutilizando o estilo das bolinhas dos depoimentos
+                    dot.setAttribute('aria-label', `Ir para formação ${index + 1}`);
+                    dot.addEventListener('click', () => {
+                        educationItems[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    });
+                    educationDotsContainer.appendChild(dot);
+                });
+
+                const dots = Array.from(educationDotsContainer.children);
+                dots[0]?.classList.add('active'); // Ativa a primeira bolinha
+
+                // Observador para atualizar a bolinha ativa ao arrastar/scrollar
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const index = educationItems.indexOf(entry.target);
+                            dots.forEach(dot => dot.classList.remove('active'));
+                            dots[index]?.classList.add('active');
+                        }
+                    });
+                }, {
+                    root: educationSlider,
+                    threshold: 0.6 // O card precisa estar 60% visível para ativar a bolinha
+                });
+
+                educationItems.forEach(item => observer.observe(item));
+                educationCarouselInitialized = true;
+            }
+
+            function destroyEducationCarousel() {
+                if (!educationCarouselInitialized) return;
+                // Por enquanto, apenas limpamos as bolinhas, pois o CSS já cuida do layout.
+                educationDotsContainer.innerHTML = '';
+                educationCarouselInitialized = false;
+            }
+
+            function setupResponsiveCarousel() {
+                // O breakpoint 'sm' do Tailwind é 640px
+                if (window.innerWidth < 640) {
+                    initializeEducationCarousel();
+                } else {
+                    destroyEducationCarousel();
+                }
+            }
+
+            // Executa na carga da página e no redimensionamento da tela
+            setupResponsiveCarousel();
+            window.addEventListener('resize', setupResponsiveCarousel);
         });
     </script>
+    <script>
+        const anoAtual = new Date().getFullYear().toString();
+        document.getElementById("Ano").textContent = anoAtual;
+    </script>
     <script src="./JS/scroll.js"></script>
-    <script src="./JS/vanilla.js"></script>
-    <script type="text/javascript">
-        VanillaTilt.init(document.querySelectorAll(".img-tilt"), {
-            max: 35,
-            speed: 2000,
-            perspective: 1000,
-            glare: true,
-            "max-glare": 0.5,
-            reset: false,
-            gyroscope: true,
-            gyroscopeMinAngleX: 0,
-            gyroscopeMaxAngleX: 0
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const section = document.getElementById('parallax-section');
+            const image = document.getElementById('parallax-image');
+
+            section.addEventListener('mousemove', (e) => {
+                // Calcula a posição do mouse em relação ao centro da seção
+                const x = (e.clientX / window.innerWidth - 0.5) * 3;
+                const y = (e.clientY / window.innerHeight - 0.5) * 3;
+
+                // Aplica transformações suaves à imagem
+                image.style.transform = `
+                    scale(1.1) 
+                    translateX(${x * 30}px) 
+                    translateY(${y * 20}px)
+                `;
+            });
+
+            // Reset ao retirar o mouse da seção
+            section.addEventListener('mouseleave', () => {
+                image.style.transform = 'scale(1.1) translateX(0) translateY(0)';
+            });
         });
     </script>
 </body>
