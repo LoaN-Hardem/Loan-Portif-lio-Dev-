@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Hardem | Desenvolvedor Web Criativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Importando a fonte Inter do Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            padding-top: 64px;
+            /* Altura do header (h-16) */
+            font-family: 'Inter', sans-serif;
+        }
+
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid #60A5FA;
+            /* Cor do cursor (azul Tailwind: blue-400) */
+            animation: typing 3.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #60A5FA;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+            /* slate-900 */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1E40AF;
+            /* blue-800 */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563EB;
+            /* blue-600 */
+        }
+
+        .section-transition {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section-transition.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efeito de zoom suave para cards de portfólio */
+        .portfolio-card img {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 scroll-smooth">
+
+    <header class="fixed w-full top-0 bg-slate-950/80 backdrop-blur-md z-50 shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#home" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors">Loan
+                    Hardem</a>
+                <nav class="hidden md:flex space-x-1">
+                    <a href="#home"
+                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Home</a>
+                    <a href="#about"
+                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Sobre</a>
+                    <a href="#projects"
+                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Estudos</a>
+                    <a href="#live-portfolio"
+                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Portfólio</a>
+                    <a href="#contact"
+                        class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Contato</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-slate-300 hover:text-white focus:outline-none p-2"
+                        aria-expanded="false" aria-controls="mobile-menu">
+                        <svg class="h-6 w-6 block" id="icon-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        <svg class="h-6 w-6 hidden" id="icon-close" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span class="sr-only">Abrir menu principal</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-700">
+            <a href="#home"
+                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Home</a>
+            <a href="#about"
+                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Sobre</a>
+            <a href="#projects"
+                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Estudos</a>
+            <a href="#live-portfolio"
+                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Portfólio</a>
+            <a href="#contact"
+                class="block px-4 py-3 text-base font-medium text-slate-300 hover:bg-blue-700 hover:text-white transition-colors">Contato</a>
+        </div>
+    </header>
+
+    <section id="home"
+        class="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-900/30 py-16 px-4 sm:px-6 lg:px-8 section-transition relative">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 items-center gap-8 md:gap-12">
+                <div class="order-2 md:order-1 text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
+                        <span class="block">Olá, sou</span>
+                        <span class="block text-blue-400">Loan Hardem.</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-300 mb-8 max-w-md mx-auto md:mx-0">
+                        <span class="typewriter-text">Transformo desafios em soluções digitais.</span>
+                    </p>
+                    <a href="#live-portfolio"
+                        class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-500 transition-transform transform hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-950">
+                        Veja meus trabalhos
+                    </a>
+                </div>
+                <div class="absolute top-0 right-0 w-1/3 h-full flex items-center justify-center">
+                    <img src="./img/loan.png" alt="Loan Hardem" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 sm:py-20 bg-slate-900 section-transition">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-blue-400">Sobre Mim</h2>
+                <p class="text-lg text-slate-300 mb-10 leading-relaxed">
+                    Sou um desenvolvedor focado em criar soluções digitais que não apenas funcionam bem, mas que também
+                    resolvem problemas complexos de forma elegante e eficiente. Minha paixão é transformar ideias em
+                    realidade através da tecnologia, sempre buscando aprimorar a experiência do usuário e a performance
+                    das aplicações.
+                </p>
+                <h3 class="text-2xl font-semibold mb-6 text-slate-100">Minhas Ferramentas e Tecnologias:</h3>
+                <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">HTML5</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">CSS3</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">JavaScript
+                        (ES6+)</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">React</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Tailwind
+                        CSS</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Node.js</span>
+                    <span
+                        class="bg-blue-700/60 text-blue-200 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-blue-600/80 transition-colors">Git
+                        & GitHub</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="py-16 sm:py-20 bg-slate-900 section-transition">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Meus Certificados</h2>
+            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
+                Aprimorando constantemente minhas habilidades e conhecimentos com cursos e certificações relevantes nas
+                mais recentes tecnologias.
+            </p>
+
+            <div class="space-y-16">
+                <div class="flex flex-col md:flex-row items-center md:justify-end gap-8">
+                    <div class="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
+                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">Desenvolvimento Web Fullstack</h3>
+                        <p class="text-slate-400 mb-4 leading-relaxed">
+                            Certificação completa em desenvolvimento web, abrangendo desde o frontend com React e
+                            Tailwind CSS até o backend com Node.js e bancos de dados. Um aprendizado profundo em
+                            arquiteturas modernas e boas práticas de código.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
+                            Credencial</a>
+                    </div>
+                    <div class="w-full md:w-1/2 flex justify-center md:justify-end order-1 md:order-2">
+                        <div
+                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
+                            <img src="./img/certificado-1.png" alt="Certificado de Desenvolvimento Web Fullstack"
+                                class="w-full h-full object-cover rounded-lg"
+                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center md:justify-start gap-8">
+                    <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+                        <div
+                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
+                            <img src="https://placehold.co/400x250/1E293B/E0E7FF?text=Certificado+2"
+                                alt="Certificado de UI/UX Design Avançado" class="w-full h-full object-cover rounded-lg"
+                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">UI/UX Design Avançado</h3>
+                        <p class="text-slate-400 mb-4 leading-relaxed">
+                            Foco em design de interface e experiência do usuário, aprendendo a criar interfaces
+                            intuitivas, acessíveis e visualmente atraentes. Domínio de ferramentas como Figma e
+                            princípios de usabilidade.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
+                            Credencial</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center md:justify-end gap-8">
+                    <div class="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
+                        <h3 class="text-2xl font-semibold mb-3 text-slate-100">DevOps Essencial</h3>
+                        <p class="text-slate-400 mb-4 leading-relaxed">
+                            Introdução aos conceitos e ferramentas DevOps, incluindo CI/CD, Docker e automação de
+                            deploy. Entendimento de como agilizar o ciclo de vida do desenvolvimento de software.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md">Ver
+                            Credencial</a>
+                    </div>
+                    <div class="w-full md:w-1/2 flex justify-center md:justify-end order-1 md:order-2">
+                        <div
+                            class="w-72 h-48 sm:w-80 sm:h-52 bg-slate-800 rounded-lg shadow-xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300 img-tilt">
+                            <img src="https://placehold.co/400x250/1E293B/E0E7FF?text=Certificado+3"
+                                alt="Certificado de DevOps Essencial" class="w-full h-full object-cover rounded-lg"
+                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/FF0000/FFFFFF?text=Erro+Img';" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects" class="py-16 sm:py-20 bg-slate-950 section-transition">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Estudos de Caso</h2>
+            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
+                Aqui apresento alguns projetos onde pude me aprofundar em desafios específicos, explorando tecnologias e
+                metodologias para alcançar os melhores resultados.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+1"
+                        alt="Nome do Estudo de Caso 1" class="w-full h-48 sm:h-56 object-cover"
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 1</h3>
+                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
+                            <strong class="text-slate-300">Desafio:</strong> Uma breve descrição do problema que este
+                            projeto buscou solucionar.
+                        </p>
+                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
+                            <strong class="text-slate-300">Solução:</strong> Como você abordou o desafio e quais
+                            tecnologias foram cruciais.
+                        </p>
+                        <p class="text-xs text-blue-400 mb-4 font-medium">#React #TailwindCSS #API</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" target="_blank" rel="noopener noreferrer"
+                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
+                                Código/Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+2"
+                        alt="Nome do Estudo de Caso 2" class="w-full h-48 sm:h-56 object-cover"
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 2</h3>
+                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
+                            <strong class="text-slate-300">Desafio:</strong> Descreva o desafio aqui.
+                        </p>
+                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
+                            <strong class="text-slate-300">Solução:</strong> Detalhe a solução implementada.
+                        </p>
+                        <p class="text-xs text-blue-400 mb-4 font-medium">#JavaScript #NodeJS #Automação</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" target="_blank" rel="noopener noreferrer"
+                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
+                                Código/Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-slate-800/70 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <img src="https://placehold.co/600x400/1E293B/E0E7FF?text=Estudo+de+Caso+3"
+                        alt="Nome do Estudo de Caso 3" class="w-full h-48 sm:h-56 object-cover"
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-100">Nome do Estudo de Caso 3</h3>
+                        <p class="text-slate-400 text-sm mb-1 leading-relaxed">
+                            <strong class="text-slate-300">Desafio:</strong> Descreva o desafio aqui.
+                        </p>
+                        <p class="text-slate-400 text-sm mb-3 leading-relaxed">
+                            <strong class="text-slate-300">Solução:</strong> Detalhe a solução implementada.
+                        </p>
+                        <p class="text-xs text-blue-400 mb-4 font-medium">#UI/UX #Figma #Prototipagem</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" target="_blank" rel="noopener noreferrer"
+                                class="flex-1 text-center text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-700 font-medium py-2 px-4 rounded-md transition-colors text-sm">Ver
+                                Código/Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="live-portfolio" class="py-16 sm:py-20 bg-slate-900 section-transition">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-blue-400">Portfólio Visual</h2>
+            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12">
+                Confira alguns dos projetos que desenvolvi e que estão atualmente online, demonstrando na prática a
+                aplicação das minhas habilidades.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="https://www.seusite1.com" target="_blank" rel="noopener noreferrer"
+                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
+                    <div class="overflow-hidden">
+                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+1"
+                            alt="Print do Site Exemplo 1"
+                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
+                            Nome do Site 1</h3>
+                        <p class="text-sm text-slate-400 mt-1">Breve descrição do site ou tecnologia principal.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.seusite2.com" target="_blank" rel="noopener noreferrer"
+                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
+                    <div class="overflow-hidden">
+                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+2"
+                            alt="Print do Site Exemplo 2"
+                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
+                            Nome do Site 2</h3>
+                        <p class="text-sm text-slate-400 mt-1">Cliente X - Solução de e-commerce.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.seusite3.com" target="_blank" rel="noopener noreferrer"
+                    class="block bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 group portfolio-card">
+                    <div class="overflow-hidden">
+                        <img src="https://placehold.co/600x400/0F172A/93C5FD?text=Print+Site+3"
+                            alt="Print do Site Exemplo 3"
+                            class="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=Erro+Img';" />
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
+                            Nome do Site 3</h3>
+                        <p class="text-sm text-slate-400 mt-1">Plataforma interativa para Y.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 sm:py-20 bg-slate-950 section-transition">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-blue-400">Entre em Contato</h2>
+                <p class="text-lg text-slate-300 mb-10">
+                    Gostou do que viu? Se você tem um projeto, uma ideia ou apenas quer trocar uma ideia sobre
+                    tecnologia e soluções digitais, adoraria conversar!
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <a href="https://wa.me/55SEUNUMEROCOMPDDD" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.712-1.001zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z" />
+                        </svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://linkedin.com/in/seu-usuario-linkedin" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/seu-usuario-github" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.074 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://instagram.com/seu-usuario-instagram" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.28.059 1.688.072 4.948.072s3.667-.013 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 text-center">
+        <p class="text-slate-400 text-sm">&copy; <span id="currentYear"></span> Loan Hardem. Transformando ideias em
+            realidade digital.</p>
+    </footer>
+
+    <script>
+        // JavaScript para o menu mobile
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        const navLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            iconMenu.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                iconMenu.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
+        });
+
+        // Atualiza o ano no footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Animação de entrada suave para seções
+        const sections = document.querySelectorAll('.section-transition');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observerInstance.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+    <script src="./JS/scroll.js"></script>
+    <script src="./JS/vanilla.js"></script>
+    <script type="text/javascript">
+        VanillaTilt.init(document.querySelectorAll(".img-tilt"), {
+            max: 35,
+            speed: 2000,
+            perspective: 1000,
+            glare: true,
+            "max-glare": 0.5,
+            reset: false,
+            gyroscope: true,
+            gyroscopeMinAngleX: 0,
+            gyroscopeMaxAngleX: 0
+        });
+    </script>
+</body>
+
+</html>
